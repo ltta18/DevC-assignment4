@@ -18,7 +18,7 @@ function AllStack() {
     <Stack.Navigator
       initialRouteName="All"
     >
-      <Stack.Screen name="All" component={All} />
+      <Stack.Screen name="All" component={All} options={{title:"All Todos", headerTitleAlign: "center"}}/>
       <Stack.Screen name="SingleToDo" component={SingleToDo} />
     </Stack.Navigator>
   )
@@ -44,7 +44,7 @@ export default function HomeScreen () {
             }})}
           >
             <Tab.Screen name="Complete" component={Complete} />
-            <Tab.Screen name="AllStack" component={AllStack} options={{title:"All Todos"}}/>
+            <Tab.Screen name="AllStack" component={AllStack} />
             <Tab.Screen name="Active" component={Active} />
           </Tab.Navigator>
         </NavigationContainer>

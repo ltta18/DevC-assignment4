@@ -5,7 +5,8 @@ import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 export default function Active () {
   return (
     <SafeAreaView style={styles.safeView}>
-      <View>
+      <View style={styles.container}>
+        <Text>Complete View</Text>
       </View>
     </SafeAreaView>
   );
@@ -17,5 +18,7 @@ const styles = StyleSheet.create({
   }, 
   container: {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   }
 });

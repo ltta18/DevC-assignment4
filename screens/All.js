@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, Text, View, Alert, StyleSheet, TouchableOpacity } from 'react-native';
+import { SafeAreaView, Text, View, Alert, StyleSheet, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import { TextInput } from 'react-native';
 import { TODOS } from '../data/data.js';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -24,7 +24,7 @@ const TodoItem = props => {
 export default function All ({ navigation }) {
   const [todoList, setTodoList] = useState(TODOS);
   const [todoBody, setTodoBody] = useState('');
-  
+
   const onToggleTodo = id => {
     const todo = todoList.find(todo => todo.id === id);
     todo.status = todo.status === 'Done' ? 'Active' : 'Done';
@@ -74,9 +74,13 @@ export default function All ({ navigation }) {
   };
 
   return (
+    <KeyboardAvoidingView
+        behavior={Platform.OS == "ios" ? "padding" : "height"}
+        style={styles.keyboard}
+    >
     <SafeAreaView style={styles.safeView}>
       <View style={styles.container}>
-        <ScrollView style={{flex: 5/7}}>
+        <ScrollView>
         {todoList.map((todo, idx) => {
           return (
             <TodoItem
@@ -101,6 +105,7 @@ export default function All ({ navigation }) {
         </View>
       </View>
     </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -108,6 +113,9 @@ const styles = StyleSheet.create({
   safeView: {
     flex: 1
   }, 
+  keyboard: {
+    flex: 1
+  },
   container: {
     flex: 1,
     alignItems: 'center',
@@ -138,7 +146,7 @@ const styles = StyleSheet.create({
     borderColor: 'grey'
   },
   inputContainer: {
-    flex: 2/7,
+    // flex: 2/7,
     width: '90%',
     marginTop: 20,
     marginBottom: '10%',
