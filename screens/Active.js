@@ -12,7 +12,7 @@ export default function Active () {
   return (
     <SafeAreaView style={styles.safeView}>
       <View style={styles.container}>
-        <Text>Complete View</Text>
+        <Text>Active View</Text>
       </View>
     </SafeAreaView>
   );
