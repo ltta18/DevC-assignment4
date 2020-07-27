@@ -1,5 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
+
+import { EmptyScreenStyles as styles } from '../styles/styles';
+import {
+  Text, 
+  View, 
+  SafeAreaView 
+} from 'react-native';
 
 
 export default function Complete () {
@@ -11,14 +17,3 @@ export default function Complete () {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  safeView: {
-    flex: 1
-  }, 
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  }
-});
