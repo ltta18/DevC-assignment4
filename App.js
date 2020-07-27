@@ -19,7 +19,7 @@ function AllStack() {
       initialRouteName="All"
     >
       <Stack.Screen name="All" component={All} options={{title:"All Todos", headerTitleAlign: "center"}}/>
-      <Stack.Screen name="SingleToDo" component={SingleToDo} />
+      <Stack.Screen name="SingleToDo" component={SingleToDo} options={{title:"Single Todo", headerTitleAlign: "center"}}/>
     </Stack.Navigator>
   )
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, Text, View, Alert, StyleSheet, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
+import { SafeAreaView, Text, View, Alert, StyleSheet, TouchableOpacity, KeyboardAvoidingView, ImageBackground } from 'react-native';
 import { TextInput } from 'react-native';
 import { TODOS } from '../data/data.js';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -8,11 +8,30 @@ const TodoItem = props => {
   const statusStyle = {
     backgroundColor: props.todo.status === 'Done' ? '#3282b8' : '#ade498'
   };
+  
+  const onLongPress = todo => {
+    const prompt = `"${todo.body}"`;
+    Alert.alert(
+      'Delete your todo?',
+      prompt,
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel'
+        },
+        { text: 'OK', onPress: () => props.onDeleteTodo(todo.id) }
+      ],
+      { cancelable: true }
+    );
+  };
+  
   return (
     <TouchableOpacity
       key={props.todo.body}
       style={[styles.todoItem, statusStyle]}
-      onPress={() => props.onToggleTodo(props.todo.id)}
+      onPress={() => onToggleTodo(props.todo.id)}
+      onLongPress={() => onLongPress(props.todo)}
     >
       <Text style={styles.todoText}>
         {props.idx + 1}: {props.todo.body}
@@ -33,33 +52,15 @@ export default function All ({ navigation }) {
     const newTodoList = [...todoList];
     setTodoList(newTodoList);
     setTimeout(() => {
-      navigation.navigate('SingleTodo', {
+      navigation.navigate('SingleToDo', {
         updatedTodo: todo
       });
     }, 1000);
   };
 
-  const onDeleteTodo = id => {
-    const newTodoList = todoList.filter(todo => todo.id !== id);
+  const onDeleteTodo = (id) => {
+    const newTodoList = todoList.filter((todo) => todo.id !== id);
     setTodoList(newTodoList);
-  };
-
-  const onLongPress = todo => {
-    const prompt = `"${todo.body}"`;
-    console.log('pressed')
-    Alert.alert(
-      'Delete your todo?',
-      prompt,
-      [
-        {
-          text: 'Cancel',
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel'
-        },
-        { text: 'OK', onPress: () => onDeleteTodo(todo.id) }
-      ],
-      { cancelable: true }
-    );
   };
 
   const onSubmitTodo = () => {
@@ -74,12 +75,13 @@ export default function All ({ navigation }) {
   };
 
   return (
-    <KeyboardAvoidingView
-        behavior={Platform.OS == "ios" ? "padding" : "height"}
-        style={styles.keyboard}
-    >
     <SafeAreaView style={styles.safeView}>
       <View style={styles.container}>
+      <ImageBackground style={styles.container} source={{ uri: 'https://mondrian.mashable.com/wp-content%252Fgallery%252Fiphone-6-wallpaper%252Ftumblr_nglh5niidy1tqjbpqo2_1280.jpg%252Ffit-in__850x850.jpg?signature=lE0RDwtRFUlnumotMRH6JRutz-g=&source=https%3A%2F%2Fmashable.com' }}>
+      <KeyboardAvoidingView
+          behavior={Platform.OS == "ios" ? "padding" : "height"}
+          style={styles.keyboard}
+      >
         <ScrollView>
         {todoList.map((todo, idx) => {
           return (
@@ -88,11 +90,15 @@ export default function All ({ navigation }) {
               todo={todo}
               key={todo.body}
               onToggleTodo={onToggleTodo}
-              onLongPress={() => onLongPress(todo)}
+              onDeleteTodo={onDeleteTodo}
             />
           );
         })}
         </ScrollView>
+      </KeyboardAvoidingView>
+      </ImageBackground>
+        
+        
         <View style={styles.inputContainer}>
           <TextInput
             value={todoBody}
@@ -105,7 +111,7 @@ export default function All ({ navigation }) {
         </View>
       </View>
     </SafeAreaView>
-    </KeyboardAvoidingView>
+    
   );
 };
 

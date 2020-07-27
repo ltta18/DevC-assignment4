@@ -1,8 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
-export default function SingleToDo ({ navigation }) {
-  const { id, status, body } = navigation.state.params.updatedTodo;
+export default function SingleToDo (navigation) {
+  console.log(navigation)
+  const { id, status, body } = navigation.route.params.updatedTodo;
   return (
     <View style={styles.container}>
       <Text style={styles.headerText}>
