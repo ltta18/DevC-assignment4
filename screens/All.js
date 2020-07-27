@@ -68,8 +68,6 @@ export default function All ({ navigation }) {
     }, 1000);
   };
 
-  console.log(todoList)
-
   const onDeleteTodo = (id) => {
     const newTodoList = todoList.filter((todo) => todo.id !== id);
     setTodoList(newTodoList);
